@@ -1,32 +1,45 @@
 # Credit Score Model
 
-Este projeto tem como objetivo desenvolver e validar um modelo de classificação para pontuação de crédito, utilizando o dataset **German Credit** da UCI Machine Learning Repository, em versão traduzida.
+Projeto simples e direto para estudar risco de crédito com o dataset **German Credit** (versão traduzida em PT-BR).
+A ideia aqui é manter um fluxo prático: entender os dados, validar qualidade mínima e ter um baseline interpretável antes de partir para modelos mais sofisticados.
 
 Dataset original:
 https://archive.ics.uci.edu/ml/datasets/statlog+(german+credit+data)
 
-O foco do projeto é explorar um fluxo completo de modelagem:
-- análise e preparação dos dados,
-- treinamento de um modelo de **Logistic Regression**,
-- avaliação do desempenho com métricas apropriadas para classificação,
-- validação do modelo ao longo do desenvolvimento.
+## O que tem neste repositório
 
-O dataset contém informações socioeconômicas e financeiras de indivíduos, e o modelo busca estimar a probabilidade de concessão de crédito com base nessas variáveis.
+- `ML_Score.ipynb`: notebook de exploração e modelagem.
+- `translated_database.csv`: base de dados usada no projeto.
+- `scripts/analise_credito.py`: análise rápida + baseline baseado em regra de negócio (sem dependências externas).
+- `tests/test_metrics.py`: teste unitário das métricas calculadas no script.
+- `german_dataset_dictionary.txt`: dicionário de variáveis.
 
-## Modelo
-- Algoritmo: **Logistic Regression**
-- Tipo de problema: **Classificação**
-- Dataset utilizado: `translated_database.csv`
-- Principais métricas avaliadas:
-  - Accuracy
-  - ROC AUC
-  - Confusion Matrix
-  - Classification Report
+## Como rodar (sem instalar bibliotecas)
 
-## Estrutura do projeto
-- `ML_Score.ipynb` — notebook com todo o processo de exploração, modelagem e avaliação
-- `translated_database.csv` — versão traduzida do dataset German Credit
-- `german_dataset_dictionary.txt` — descrição das variáveis do dataset
+```bash
+python scripts/analise_credito.py
+```
 
+Saída esperada:
+- volume de dados,
+- distribuição de `default`,
+- checagens básicas de qualidade (duplicados e campos vazios),
+- resumo das variáveis numéricas,
+- métricas de baseline (accuracy, precision, recall, f1 e matriz de confusão).
+
+## Rodando os testes
+
+```bash
+python -m unittest discover -s tests
+```
+
+## Próximos passos recomendados
+
+1. Criar split estratificado para preservar melhor o balanceamento do alvo.
+2. Comparar o baseline de regra com modelos supervisionados (regressão logística, árvore e gradient boosting).
+3. Incluir análise de explicabilidade (ex.: importância de variáveis / SHAP).
+4. Definir um critério de negócio explícito (ex.: minimizar falso negativo de inadimplência).
 
 ---
+
+Se quiser, na próxima iteração eu já deixo uma pipeline completa com treino + validação cruzada + export de relatório em CSV.
